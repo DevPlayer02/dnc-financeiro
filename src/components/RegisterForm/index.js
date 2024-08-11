@@ -1,6 +1,6 @@
 "use client"
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
     const onSubmit = (e) => {
         e.preventDefault()
         console.log('Formulario enviado')
@@ -8,7 +8,10 @@ export const LoginForm = () => {
 
     return (
         <form onSubmit={onSubmit}>
-            <h1>LoginForm</h1>
+            <h1>RegisterForm</h1>
+            <label htmlFor="name"> Nome </label>
+            <input type="text" placeholder="Name" id="name" name="name"/>
+
             <label htmlFor="email"> E-mail </label>
             <input type="text" placeholder="E-mail" id="email" name="email"/>
 
