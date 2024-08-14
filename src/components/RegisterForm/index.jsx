@@ -3,15 +3,13 @@
 import { useState } from 'react';
 import axios from 'axios';
 import * as S from './style';
-import { Alert } from '@mui/material';
 
 
 export const RegisterForm = () => {
     const [ email, setEmail] = useState('');
     const [ password, setPassword] = useState('');
     const [ name, setName] = useState('');
-
-    const [ open, setOpen] = useState(false);
+    const [ notification, setNotification] = useState(false);
 
     const onChangeValue = (e) => {
         const { name, value } = e.target
@@ -26,14 +24,18 @@ export const RegisterForm = () => {
         try {
             const response = await axios.post('http://localhost:8080/auth/register', { email, password, name })
             localStorage.setItem('token', response.data.data.token)
-            handleClick()
+            setNotification({
+                open: true,
+                message: `Usuário ${ email } cadaastrado com sucesso !`,
+                severity:"success"
+            })
         } catch (err) {
-            console.log('err', err)
+            setNotification({
+                open: true,
+                message: err.response.data.error,
+                severity:"error"
+            })
         }
-    }
-
-    const handleClick = () => {
-        setOpen(true)
     }
 
     const handleClose = (_, reason) => {
@@ -41,7 +43,11 @@ export const RegisterForm = () => {
             return;
         }
 
-        setOpen(false)
+        setNotification({
+            open: false,
+            message: '',
+            severity: ''
+        })
     }
 
     return (
@@ -53,9 +59,9 @@ export const RegisterForm = () => {
                 <S.TextField name="password" onChange={ onChangeValue } type="password" label="Senha" variant="outlined" color="primary" fullWidth/>
                 <S.Button variant="contained" type="submit"> Enviar </S.Button>
             </S.Form>
-            <S.Snackbar open={open} autoHideDuration={3000} onClose={handleClose} >
-                <S.Alert onClose={handleClose} variant='filled' severity='success' sx={{ width: '100%' }}>
-                    Usuário { name } cadastrado com sucesso !
+            <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >
+                <S.Alert onClose={handleClose} variant='filled' severity={notification.severity} sx={{ width: '100%' }}>
+                    { notification.message }
                 </S.Alert>
             </S.Snackbar>
         </>
