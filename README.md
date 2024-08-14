@@ -1,2 +1,2 @@
 # dnc-financeiro
-Projeto Fullstack com um sistema com login para organização financeira.
+FrontEnd do projeto Fullstack da DNC com um sistema com login e registro para organizações financeiras.
