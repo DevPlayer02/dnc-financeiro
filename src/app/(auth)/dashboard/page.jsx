@@ -31,7 +31,7 @@ export const DashboardPage = () => {
     return (
         <div>
             <h1>Dashboard</h1>
-            < CategoriesUpdate />
+            < CategoriesUpdate categoryId={ 1 } />
         </div>
     )
 }
