@@ -3,8 +3,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react";
 // import { CategoriesCreate } from '@/components/Categories/CategoriesCreate'
-
-import { CategoriesUpdate } from '@/components/Categories/CategoriesUpdate'
+// import { CategoriesUpdate } from '@/components/Categories/CategoriesUpdate'
+// import { GoalsCreate } from "@/components/Goals/GoalsCreate";
+import { GoalsUpdate } from "@/components/Goals/GoalsUpdate";
 
 export const DashboardPage = () => {
     const [ user, setUser ] = useState({
@@ -31,7 +32,7 @@ export const DashboardPage = () => {
     return (
         <div>
             <h1>Dashboard</h1>
-            < CategoriesUpdate categoryId={ 1 } />
+            < GoalsUpdate goalId={ 1 }/>
         </div>
     )
 }

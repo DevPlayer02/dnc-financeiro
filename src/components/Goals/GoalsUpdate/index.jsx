@@ -1,11 +1,13 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as S from './style';
 
-export const CategoriesUpdate = ({ categoryId }) => {
-    const [ name, setName] = useState('');
+export const GoalsUpdate = ({ goalId }) => {
+    const [ description, setDescription] = useState('');
+    const [ value, setValue] = useState('');
+    const [ dateGoal, setDateGoal] = useState('');
     const [ userId, setUserId] = useState('');
     const [notification, setNotification] = useState({
         open: false,
@@ -15,19 +17,23 @@ export const CategoriesUpdate = ({ categoryId }) => {
 
     const onChangeValue = (e) => {
         const { name, value } = e.target
-        if (name === 'name') setName(value)
-    }
+        if (name === 'description') setDescription(value)
+        if (name === 'value') setValue(value)
+        if (name === 'dateGoal') setDateGoal(value)
+    };
 
     useEffect(() => {
-        const getCategory = async () => {
+        const getGoal = async () => {
             try {
                 const token = localStorage.getItem('token')
-                const response = await axios.get(`http://localhost:8080/categories/${ categoryId }`, {
+                const response = await axios.get(`http://localhost:8080/goals/${ goalId }`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     } 
                 })
-                setName(response.data.data.name)
+                setDescription(response.data.data.description)
+                setValue(response.data.data.value)
+                setDateGoal(response.data.data.date)
                 setUserId(response.data.data.user_id)
             } catch (error) {
                 setNotification({
@@ -38,28 +44,30 @@ export const CategoriesUpdate = ({ categoryId }) => {
             }
         }
 
-        getCategory()
-    }, [ categoryId ])
+        getGoal()
+    }, [ goalId ]);
+
 
     const onSubmit = async (e) => {
         e.preventDefault()
 
         try {
             const token = localStorage.getItem('token')
-            await axios.put(`http://localhost:8080/categories/${ categoryId }`, { name, user_id: userId }, {
+            await axios.put(`http://localhost:8080/goals/${ goalId }`, { description, value, date: dateGoal, user_id: userId }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 } 
             })
             setNotification({
                 open: true,
-                message: `Categoria ${ name } atualizada com sucesso!`,
+                message: `Meta ${ description } atualizada com sucesso!`,
                 severity:"success"
             })
         } catch (err) {
+            console.log(err)
             setNotification({
                 open: true,
-                message: err.response.data.error,
+                message: err.response.data.err,
                 severity:"error"
             })
         }
@@ -80,8 +88,10 @@ export const CategoriesUpdate = ({ categoryId }) => {
     return (
         <>
             <S.Form onSubmit={onSubmit}>
-                <S.H1>Atualizar categoria</S.H1>
-                <S.TextField name="name" onChange={ onChangeValue } label="Name" variant="outlined" value={name} color="primary" fullWidth/>
+                <S.H1>Atualizar meta</S.H1>
+                <S.TextField name="description" onChange={ onChangeValue } label="Description" variant="outlined" value={description} color="primary" fullWidth/>
+                <S.TextField name="value" onChange={ onChangeValue } label="Value" variant="outlined" value={value} color="primary" fullWidth/>
+                <S.TextField name="dateGoal" onChange={ onChangeValue } label="Date" variant="outlined" value={dateGoal} color="primary" fullWidth/>
                 <S.Button variant="contained" type="submit"> Enviar </S.Button>
                 <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >
                     <S.Alert onClose={handleClose} variant='filled' severity={ notification.severity } sx={{ width: '100%' }}>
@@ -94,4 +104,4 @@ export const CategoriesUpdate = ({ categoryId }) => {
     )
 }
 
-export default CategoriesUpdate
+export default GoalsUpdate
