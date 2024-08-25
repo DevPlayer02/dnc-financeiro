@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 // import { CategoriesCreate } from '@/components/Categories/CategoriesCreate'
 // import { CategoriesUpdate } from '@/components/Categories/CategoriesUpdate'
 // import { GoalsCreate } from "@/components/Goals/GoalsCreate";
-import { GoalsUpdate } from "@/components/Goals/GoalsUpdate";
+// import { GoalsUpdate } from "@/components/Goals/GoalsUpdate";
+// import { TransactionCreate } from "@/components/Transactions/TransactionCreate";
+import { TransactionUpdate } from "@/components/Transactions/TransactionUpdate";
 
 export const DashboardPage = () => {
     const [ user, setUser ] = useState({
@@ -32,7 +34,7 @@ export const DashboardPage = () => {
     return (
         <div>
             <h1>Dashboard</h1>
-            < GoalsUpdate goalId={ 1 }/>
+            < TransactionUpdate transactionId={ 1 }/>
         </div>
     )
 }
