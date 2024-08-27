@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import axios from 'axios';
 import * as S from './style';
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
+    const router = useRouter()
     const [ email, setEmail] = useState('');
     const [ password, setPassword] = useState('');
     const [ notification, setNotification] = useState(false);
@@ -27,6 +29,7 @@ export const LoginForm = () => {
                 message: `Bem vindo ${ email } !`,
                 severity:"success"
             })
+            router.push('/dashboard')
         } catch (err) {
             setNotification({
                 open: true,
@@ -58,7 +61,7 @@ export const LoginForm = () => {
     return (
         <>
             <S.Form onSubmit={onSubmit}>
-                <S.Typography variant="h1" color="primary"><b>YOUR</b>finance.<b>IO</b></S.Typography>
+            <S.Typography variant="h1" color="primary">YOUR<S.Span>finance.</S.Span>IO</S.Typography>
                 <S.TextField name="email" onChange={ onChangeValue } label="E-mail" variant="outlined" color="primary" fullWidth/>
                 <S.FormControl variant="outlined" fullWidth>
                     <S.InputLabel htmlFor="outlined-adornment-password"> Senha </S.InputLabel>

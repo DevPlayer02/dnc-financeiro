@@ -20,11 +20,20 @@ export const Button = styled(ButtonMUI)`
 
 export const TextField = styled(TextFieldMUI)`
     color: white;
-    background-color: white;
+    background-color: ${({ theme }) => theme.palette.background.default};
     border-radius: 15px;
     height: 50px;
     margin-bottom: 34px;
 `
+
+export const Span = styled.span`
+    font-family: ${({theme}) => theme.typography.h2};
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 32px;
+    letter-spacing: 0.08em;
+`
+
 export const Form = styled.form`
     display: flex;
     flex-direction: column;
@@ -39,7 +48,7 @@ export const Alert = styled(AlertMUI)``
 export const Snackbar = styled(SnackbarMUI)``
 
 export const Typography = styled(TypographyMUI)`
-    padding-bottom: 24px;
+    padding-bottom: 64px;
 `
 
 export const Link = styled(LinkNEXT)`

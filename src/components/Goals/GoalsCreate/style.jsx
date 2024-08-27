@@ -12,7 +12,7 @@ export const Button = styled(ButtonMUI)`
 
 export const TextField = styled(TextFieldMUI)`
     color: white;
-    background-color: white;
+    background-color: ${({ theme }) => theme.palette.background.default};
     border-radius: 10px;
     height: 50px;
     gap: 15px;

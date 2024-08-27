@@ -11,20 +11,24 @@ const theme = createTheme({
     h1: {
       fontFamily: [ 'Poppins','sans-serif' ].join(','),
       fontSize: '40px',
-      fontWeight: '500',
+      fontWeight: '800',
       lineHeight: '32px',
       letterSpacing: '0.08em'
     },
     h2: {
-      fontSize: '24px',
-      fontWeight: '700',
-      lineHeight: '28px'
+      fontFamily: [ 'Poppins','sans-serif' ].join(','),
+      fontSize: '25px',
+      fontWeight: '800',
+      lineHeight: '32px'
     }
   },
   palette: {
     primary: {
-      main: "#299D91",
+      main: "#299D91"
     },
+    background: {
+      default: "#FFFFFF"
+    }
   },
 });
 

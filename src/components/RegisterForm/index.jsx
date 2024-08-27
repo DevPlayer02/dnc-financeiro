@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import axios from 'axios';
 import * as S from './style';
+import { useRouter } from 'next/navigation';
 
 
 export const RegisterForm = () => {
+    const router = useRouter()
     const [ email, setEmail] = useState('');
     const [ password, setPassword] = useState('');
     const [ name, setName] = useState('');
@@ -30,6 +32,7 @@ export const RegisterForm = () => {
                         message: `Usuário ${ email } cadaastrado com sucesso !`,
                         severity:"success"
                     })
+                    router.push('/dashboard')
                 } catch (err) {
                     setNotification({
                         open: true,
@@ -60,7 +63,7 @@ export const RegisterForm = () => {
             return (
                 <>
             <S.Form onSubmit={onSubmit}>
-            <S.Typography variant="h1" color="primary" ><b>YOUR</b>finance.<b>IO</b></S.Typography>
+            <S.Typography variant="h1" color="primary">YOUR<S.Span>finance.</S.Span>IO</S.Typography>
             <S.Typography variant="h2" color="dark" ><b> Crie sua conta </b></S.Typography>
                 <S.TextField name="name" onChange={ onChangeValue } label="Nome" variant="outlined" color="primary" fullWidth/>
                 <S.TextField name="email" onChange={ onChangeValue } label="E-mail" variant="outlined" color="primary" fullWidth/>
