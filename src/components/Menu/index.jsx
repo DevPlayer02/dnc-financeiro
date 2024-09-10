@@ -5,8 +5,6 @@ import * as React from 'react';
 import { useRouter } from 'next/navigation'
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
 import GridViewIcon from '@mui/icons-material/GridView'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
@@ -45,46 +43,46 @@ export const Menu = ({ children }) => {
         >
             <List>
                 <S.Typography variant="h2" color="primary">YOUR<S.Span>finance.</S.Span>IO</S.Typography>
-                <ListItem disablePadding>
+                <S.ListItem>
                     <S.Link href="/dashboard">
-                        <ListItemButton>
+                        <S.ListItemButton>
                             <S.ListItemIcon>
                                 <GridViewIcon />
                             </S.ListItemIcon>
                             <S.ListItemText primary="Meu painel" />
-                        </ListItemButton>
+                        </S.ListItemButton>
                     </S.Link>
-                </ListItem>
-                <ListItem disablePadding>
+                </S.ListItem>
+                <S.ListItem>
                     <S.Link href="/category">
-                        <ListItemButton>
+                        <S.ListItemButton>
                             <S.ListItemIcon>
                                 <AccountBalanceWalletIcon />
                             </S.ListItemIcon>
                             <S.ListItemText primary="Categoria" />
-                        </ListItemButton>
+                        </S.ListItemButton>
                     </S.Link>
-                </ListItem>
-                <ListItem disablePadding>
+                </S.ListItem>
+                <S.ListItem>
                     <S.Link href="/extract">
-                        <ListItemButton>
+                        <S.ListItemButton>
                             <S.ListItemIcon>
                                 <SyncAltIcon />
                             </S.ListItemIcon>
                             <S.ListItemText primary="Extrato" />
-                        </ListItemButton>
+                        </S.ListItemButton>
                     </S.Link>
-                </ListItem>
+                </S.ListItem>
             </List>
             <List>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={doLogout}>
+                <S.ListItem>
+                    <S.ListItemButton onClick={doLogout}>
                         <S.ListItemIcon>
                             <ExitToAppIcon />
                         </S.ListItemIcon>
                         <S.ListItemText primary="Sair" />
-                    </ListItemButton>
-                </ListItem>
+                    </S.ListItemButton>
+                </S.ListItem>
             </List>
         </S.Drawer>
         <Box

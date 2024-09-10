@@ -1,16 +1,33 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import * as S from './style';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 
-export const CategoriesCreate = () => {
+export const CategoriesCreate = ({ openModal, closeModal }) => {
     const [ name, setName] = useState('');
     const [notification, setNotification] = useState({
         open: false,
         message: '',
         severity: ''
     });
+
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if(openModal) {
+            setOpen(true)
+        };
+    },[openModal]);
+
+    const handleCloseModal = () => {
+        setOpen(false);
+        closeModal(false);
+    };
 
     const onChangeValue = (e) => {
         const { name, value } = e.target
@@ -39,6 +56,7 @@ export const CategoriesCreate = () => {
                 severity:"error"
             })
         }
+        handleCloseModal()
     }
 
     const handleClose = (_, reason) => {
@@ -52,19 +70,37 @@ export const CategoriesCreate = () => {
             severity: ''
         })
     }
-
+    
     return (
         <>
-            <S.Form onSubmit={onSubmit}>
-                <S.H1>Criar categoria</S.H1>
-                <S.TextField name="name" onChange={ onChangeValue } label="" variant="outlined" color="primary" fullWidth/>
-                <S.Button variant="contained" type="submit"> Enviar </S.Button>
-                <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >
-                    <S.Alert onClose={handleClose} variant='filled' severity={ notification.severity } sx={{ width: '100%' }}>
-                        { notification.message }
-                    </S.Alert>
-                </S.Snackbar>
-            </S.Form>
+                <Dialog
+                    open={open}
+                    onClose={handleCloseModal}
+                    PaperProps={{
+                    component: 'form',
+                    // onSubmit: (event) => {
+                    //     event.preventDefault();
+                    //     const formData = new FormData(event.currentTarget);
+                    //     const formJson = Object.fromEntries(formData.entries());
+                    //     const email = formJson.email;
+                    //     console.log(email);
+                    //     handleCloseModal();
+                    // },
+                    }}
+                >
+                    <S.DialogTitle> Criar categoria </S.DialogTitle>
+                    <DialogContent>
+                        <S.TextField name="nome" onChange={ onChangeValue } label="nome" variant="outlined" color="primary" fullWidth/>
+                        <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >
+                            <S.Alert onClose={handleClose} variant='filled' severity={ notification.severity } sx={{ width: '100%' }}>
+                                { notification.message }
+                            </S.Alert>
+                        </S.Snackbar>
+                    </DialogContent>
+                    <DialogActions style={{ display: 'flex', justifyContent: 'center'}}>
+                        <Button variant="contained" type="submit" onClick={onSubmit}> Save </Button>
+                    </DialogActions>
+                </Dialog>
         </>
         
     )

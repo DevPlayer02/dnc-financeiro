@@ -4,8 +4,11 @@ import TypographyMUI from '@mui/material/Typography';
 import DrawerMUI from '@mui/material/Drawer';
 import ListItemIconMUI from '@mui/material/ListItemIcon';
 import ListItemTextMUI from '@mui/material/ListItemText';
+import ListItemButtonMUI from '@mui/material/ListItemButton';
+import ListItemMUI from '@mui/material/ListItem';
 
 export const Typography = styled(TypographyMUI)`
+    color: white;
     margin: 48px 0 30px 30px;
 `
 
@@ -30,4 +33,18 @@ export const ListItemText = styled(ListItemTextMUI)`
 
 export const Link = styled(LinkNEXT)`
     text-decoration: none;
+`
+
+export const ListItem = styled(ListItemMUI)`
+    &:hover {
+        background: #299D91;
+        font-size: 800;
+    }
+`
+
+export const ListItemButton = styled(ListItemButtonMUI)`
+    &:hover {
+        background: #299D91;
+        font-size: 800;
+    }
 `
