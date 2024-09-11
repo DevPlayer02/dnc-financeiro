@@ -26,6 +26,7 @@ export const CategoriesCreate = ({ openModal, closeModal }) => {
 
     const handleCloseModal = () => {
         setOpen(false);
+        setNotification({ open: false, message: '', severity: '' }); 
         closeModal(false);
     };
 
@@ -35,29 +36,29 @@ export const CategoriesCreate = ({ openModal, closeModal }) => {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault()
-
+        e.preventDefault();
+    
         try {
-            const token = localStorage.getItem('token')
+            const token = localStorage.getItem('token');
             await axios.post('http://localhost:8080/categories', { name }, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                } 
-            })
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             setNotification({
                 open: true,
-                message: `Categoria ${ name } criada com sucesso!`,
-                severity:"success"
-            })
+                message: `Categoria ${name} criada com sucesso!`,
+                severity: 'success',
+            });
         } catch (err) {
             setNotification({
                 open: true,
-                message: err.response.data.error,
-                severity:"error"
-            })
+                message: err.response.data.error || "Erro ao criar categoria",
+                severity: 'error',
+            });
         }
-        handleCloseModal()
-    }
+    };
+    
 
     const handleClose = (_, reason) => {
         if (reason === 'clickaway') {
@@ -78,29 +79,21 @@ export const CategoriesCreate = ({ openModal, closeModal }) => {
                     onClose={handleCloseModal}
                     PaperProps={{
                     component: 'form',
-                    // onSubmit: (event) => {
-                    //     event.preventDefault();
-                    //     const formData = new FormData(event.currentTarget);
-                    //     const formJson = Object.fromEntries(formData.entries());
-                    //     const email = formJson.email;
-                    //     console.log(email);
-                    //     handleCloseModal();
-                    // },
                     }}
                 >
-                    <S.DialogTitle> Criar categoria </S.DialogTitle>
+                    <S.DialogTitle> Nova categoria </S.DialogTitle>
                     <DialogContent>
-                        <S.TextField name="nome" onChange={ onChangeValue } label="nome" variant="outlined" color="primary" fullWidth/>
-                        <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >
-                            <S.Alert onClose={handleClose} variant='filled' severity={ notification.severity } sx={{ width: '100%' }}>
-                                { notification.message }
-                            </S.Alert>
-                        </S.Snackbar>
+                        <S.TextField name="name" onChange={ onChangeValue } label="nome" variant="outlined" color="primary" fullWidth/>
                     </DialogContent>
                     <DialogActions style={{ display: 'flex', justifyContent: 'center'}}>
                         <Button variant="contained" type="submit" onClick={onSubmit}> Save </Button>
                     </DialogActions>
                 </Dialog>
+                <S.Snackbar open={notification.open} autoHideDuration={null} onClose={handleClose} >
+                    <S.Alert onClose={handleClose} variant='filled' severity={ notification.severity } sx={{ width: '100%' }}>
+                        { notification.message }
+                    </S.Alert>
+                </S.Snackbar>
         </>
         
     )
