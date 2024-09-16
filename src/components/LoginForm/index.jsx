@@ -84,7 +84,7 @@ export const LoginForm = () => {
                         } label="Password" 
                     />
                 </S.FormControl>
-                <S.Button variant="contained" color='primary' type="submit" fullWidth> Enviar </S.Button>
+                <S.Button variant="contained" color='primary' type="submit" fullWidth> Entrar </S.Button>
                 <S.Link href="/register" > Criar uma conta </S.Link>
             </S.Form>
             <S.Snackbar open={notification.open} autoHideDuration={3000} onClose={handleClose} >

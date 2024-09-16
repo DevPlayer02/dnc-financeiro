@@ -88,7 +88,7 @@ export const RegisterForm = () => {
                         } label="Password" 
                     />
                 </S.FormControl>
-                <S.Button variant="contained" type="submit" fullWidth> Enviar </S.Button>
+                <S.Button variant="contained" type="submit" fullWidth> Cadastrar </S.Button>
                 <S.P> ou faça login </S.P>
                 <S.P> Já possui uma conta? <S.Link href="/login"> Faça login aqui. </S.Link></S.P>
             </S.Form>

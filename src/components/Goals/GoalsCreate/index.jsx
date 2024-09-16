@@ -7,7 +7,11 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 import { NumericFormat } from 'react-number-format';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
+import { DatePicker } from '@mui/x-date-pickers';
+
 
 const NumericFormatCustom = forwardRef(function NumericFormatCustom(props, ref) {
     const { onChange, ...other } = props;
@@ -25,7 +29,7 @@ const NumericFormatCustom = forwardRef(function NumericFormatCustom(props, ref) 
                 });
             }}
             thousandSeparator="."
-            decimalSeparator=','
+            decimalSeparator=","
             valueIsNumericString
             prefix="R$ "
         />
@@ -118,17 +122,13 @@ export const GoalsCreate = ({ openModal, closeModal }) => {
                         color="primary" 
                         fullWidth
                     />
-                    <S.TextField 
-                        name="dateGoal" 
-                        onChange={onChangeValue} 
-                        label="Date" 
-                        variant="outlined" 
-                        color="primary" 
-                        fullWidth
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                        <DatePicker value={ dateGoal }  onChange={(newValue) => setDateGoal(newValue)}/>
+                    </LocalizationProvider>
                     <S.TextField
-                        label="Valor"
+                        label="Value"
                         name="value"
+                        value={value}
                         onChange={onChangeValue}
                         InputProps={{
                             inputComponent: NumericFormatCustom,

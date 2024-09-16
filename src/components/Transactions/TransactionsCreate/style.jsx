@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import ButtonMUI from '@mui/material/Button';
 import TextFieldMUI from '@mui/material/TextField';
 import AlertMUI from '@mui/material/Alert';
 import SnackbarMUI from '@mui/material/Snackbar';
@@ -7,23 +6,21 @@ import FormControlMUI from '@mui/material/FormControl';
 import InputLabelMUI from '@mui/material/InputLabel';
 import SelectMUI from '@mui/material/Select';
 import MenuItemMUI from '@mui/material/MenuItem';
+import DialogTitleMUI from '@mui/material/DialogTitle';
 
-
-
-
-export const Button = styled(ButtonMUI)`
-    color: white;
-    background-color: blue;
+export const DialogTitle = styled(DialogTitleMUI)`
+    text-align: center;
+    margin-bottom: 12px;
 `
+
 export const TextField = styled(TextFieldMUI)`
     color: white;
     background-color: ${({ theme }) => theme.palette.background.default};
     border-radius: 10px;
     height: 50px;
-    gap: 15px;
+    margin-bottom: 15px;
 `
 export const H1 = styled.h1`
-    color: red;
 `
 export const Form = styled.form``
 
@@ -36,10 +33,12 @@ export const FormControl = styled(FormControlMUI)`
     background-color: white;
     border-radius: 10px;
     height: 50px;
-    gap: 15px;`
+    margin-bottom: 15px;
+`
 
 export const InputLabel = styled(InputLabelMUI)``
 
 export const Select = styled(SelectMUI)``
 
 export const MenuItem = styled(MenuItemMUI)``
+

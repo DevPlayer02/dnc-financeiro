@@ -22,9 +22,9 @@ export const H1 = styled.h1`
     color: red;
 `
 
-export const Form = styled.form`
-`
+export const Form = styled.form``
 
 export const Alert = styled(AlertMUI)``
 
 export const Snackbar = styled(SnackbarMUI)``
+

@@ -86,7 +86,7 @@ export const CategoriesCreate = ({ openModal, closeModal }) => {
                         <S.TextField name="name" onChange={ onChangeValue } label="nome" variant="outlined" color="primary" fullWidth/>
                     </DialogContent>
                     <DialogActions style={{ display: 'flex', justifyContent: 'center'}}>
-                        <Button variant="contained" type="submit" onClick={onSubmit}> Save </Button>
+                        <Button variant="contained" type="submit" onClick={onSubmit}> Salvar </Button>
                     </DialogActions>
                 </Dialog>
                 <S.Snackbar open={notification.open} autoHideDuration={null} onClose={handleClose} >
