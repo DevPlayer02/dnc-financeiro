@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { CategoriesCreate } from '@/components/Categories/CategoriesCreate'
 import { GoalsCreate } from '@/components/Goals/GoalsCreate'
 import { TransactionsCreate } from '@/components/Transactions/TransactionsCreate'
+import { TransactionsList } from '@/components/Transactions/TransactionsList'
 
 export const ExtractPage = () => {
     const [ user, setUser ] = useState({
@@ -45,6 +46,7 @@ export const ExtractPage = () => {
             <TransactionsCreate openModal={openModalTransaction} closeModal={setOpenModalTransaction}/>
             <CategoriesCreate openModal={openModalCategory} closeModal={setOpenModalCategory}/>
             <GoalsCreate openModal={openModalGoal} closeModal={setOpenModalGoal}/>
+            <TransactionsList />
         </>
     )
 };
