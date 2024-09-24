@@ -9,10 +9,10 @@ import { MenuItem, Select } from '@mui/material';
 
 export const TransactionsList = () => {
 
-    const [ transactions, setTransactions ] = useState([])
-    const [ type, setType] = useState('')
+    const [ transactions, setTransactions ] = useState(['Todos'])
+    const [ type, setType] = useState('Todas')
     const [ filteredTransactions, setFilteredTransactions ] = useState([])
-    const [year, setYear] = useState("Todos");
+    const [ year, setYear ] = useState(['todos']);
     const [ selectYear, setSelectYear] = useState([])
 
     useEffect(() => {
@@ -26,9 +26,14 @@ export const TransactionsList = () => {
             })
             setTransactions(response.data.data)
 
-            const dataArray = response.data.data;
-            const yearsArray = [...new Set(dataArray.map(obj => obj.date.slice(0, 4)))];
-            setSelectYear(yearsArray);
+            const years = response.data.data
+             .map(transaction => new Date(transaction.date).getFullYear())
+             .filter((year, index, years) => years.indexOf(year) === index)
+             .sort((a, b) => a - b);
+             setSelectYear([
+              'Todos',
+              ...years
+             ])
 
           } catch (error) {
             setNotification({
@@ -42,24 +47,24 @@ export const TransactionsList = () => {
       }, [])
 
       useEffect(() => {
-        if (!year.length) {
+        if (year === 'todos') {
 
             if (type === 'Todas') {
-                setFilteredTransactions(transactions)
+              setFilteredTransactions(transactions)
             }
-            if (type === 'Receita') {
-            const receita = transactions.filter(transaction => transaction.type === 'Receita' && new Date(transaction.date).getFullYear() === Number(year))
-            setFilteredTransactions(receita)
+            if (type === 'Receitas') {
+              const receita = transactions.filter(transaction => transaction.type === 'Receita' )
+              setFilteredTransactions(receita)
             }
-            if (type === 'Despesa') {
-            const despesa = transactions.filter(transaction => transaction.type === 'Despesa' && new Date(transaction.date).getFullYear() === Number(year))
-            setFilteredTransactions(despesa)
+            if (type === 'Despesas') {
+              const despesa = transactions.filter(transaction => transaction.type === 'Despesas' )
+              setFilteredTransactions(despesa)
             }
         
         } else {
             if (type === 'Todas') {
                 const todas = transactions.filter(transaction =>  new Date(transaction.date).getFullYear() === Number(year))
-                setFilteredTransactions(transactions)
+                setFilteredTransactions(todas)
             }
             if (type === 'Receita') {
               const receita = transactions.filter(transaction => transaction.type === 'Receita' && new Date(transaction.date).getFullYear() === Number(year))
@@ -80,12 +85,19 @@ export const TransactionsList = () => {
     const onChangeValue = (e) => {
         const { name, value } = e.target
         if (name === 'year') setYear(value)
+        if (name === 'type') setType(value)
 
     }
 
     return (
         <>  
+            <div style={{ display: 'flex', gap: '20px', margin: '30px 0', cursor: 'pointer'}}>
+                    <div onClick={() => onChangeValue()}>Todas</div>
+                    <div onClick={() => onChangeValue()}>Receita</div>
+                    <div onClick={() => onChangeValue()}>Despesa</div>
+            </div>
             <Select
+                style={{ margin: '25px 0'  }}
                 labelId="year"
                 id="id_year"
                 name="year"
@@ -93,18 +105,13 @@ export const TransactionsList = () => {
                 label="Anos"
                 onChange={onChangeValue}
                 >
-                    <MenuItem value="Todos" > Todos </MenuItem>
+                    <MenuItem value="todos" > Todos </MenuItem>
                     {selectYear.map(year => (
                         <MenuItem key={year} value={year} >
                             {year}
                         </MenuItem>
                     ))}
             </Select>
-            <div style={{ display: 'flex', gap: '20px', margin: '30px 0', cursor: 'pointer'}}>
-                    <div onClick={() => setType('Todas')}>Todas</div>
-                    <div onClick={() => setType('Receita')}>Receita</div>
-                    <div onClick={() => setType('Despesa')}>Despesa</div>
-            </div>
             <S.TableContainer component={Paper}>
                 <S.Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <S.TableHead>
@@ -119,13 +126,13 @@ export const TransactionsList = () => {
                     <S.TableBody>
                         {filteredTransactions.map((transaction) => (
                             <S.TableRow
-                            key={transaction.description}
+                            key={transaction.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <S.TableCell component="th" scope="row">
                                     {transaction.description}
                                 </S.TableCell>
-                                <S.TableCell align="right">{transaction.type}</S.TableCell>
+                                <S.TableCell align="right" name="type" value={type}>{transaction.type}</S.TableCell>
                                 <S.TableCell align="right">{formatDate(transaction.date)}</S.TableCell>
                                 <S.TableCell align="right">{compareAsc(new Date(), new Date(transaction.date)) === 1 ? 'Realizada' : 'Planejada'}</S.TableCell>
                                 <S.TableCell align="right">{transaction.value / 100}</S.TableCell>
